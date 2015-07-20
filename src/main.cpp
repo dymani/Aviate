@@ -1,33 +1,24 @@
-#include <SFML/Graphics.hpp>
-#include <GL/glew.h>
+#include "Game.h"
+#include "GameStateSplash.h"
+
+#include <windows.h>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    av::Game game;
 
-    glewExperimental = GL_TRUE;
-    glewInit();
-    GLuint vertexBuffer;
-    glGenBuffers(1, &vertexBuffer);
+#if _DEBUG
+    HWND hWnd = GetConsoleWindow();
+    ShowWindow(hWnd, SW_SHOW);
+#else
+    HWND hWnd = GetConsoleWindow();
+    ShowWindow(hWnd, SW_HIDE);
+#endif
+    game.pushState(new av::GameStateSplash(game));
+    game.run();
 
-    printf("%u\n", vertexBuffer);
-
-    while(window.isOpen()) {
-        sf::Event event;
-        while(window.pollEvent(event)) {
-            if(event.type == sf::Event::Closed)
-                window.close();
-            else if(event.type == sf::Event::KeyPressed)
-                if(event.key.code == sf::Keyboard::Escape)
-                    window.close();
-                break;
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+#if _DEBUG
+    system("PAUSE");
+#endif
 
     return 0;
 }
