@@ -21,6 +21,13 @@ namespace av {
             m_game.pushTexture("title", title);
             m_game.pushTexture("twilight", twilight);
         }
+        {
+            sf::SoundBuffer title;
+            if(!title.loadFromFile("assets/sounds/title.wav")) {
+                m_game.getWindow().close();
+            }
+            m_game.pushSound("title", title);
+        }
         m_splash.setTexture(game.getTexture("splash0"));
         m_splash.setPosition(0, 0);
         m_splash.setColor(sf::Color::Black);
@@ -29,6 +36,7 @@ namespace av {
         m_state = START;
         m_splashNo = 0;
     }
+    
     void GameStateSplash::draw(const double dt) {
         m_splash.setColor(sf::Color(m_brightness + int(dt * 3), m_brightness + int(dt * 3),
             m_brightness + int(dt * 3), 255));

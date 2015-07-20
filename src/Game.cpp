@@ -13,6 +13,7 @@ namespace av {
         m_icon.loadFromFile("assets/textures/icon.png");
         m_window.setIcon(m_icon.getSize().x, m_icon.getSize().y, m_icon.copyToImage().getPixelsPtr());
         m_window.clear(sf::Color::Black);
+        srand((unsigned)time(NULL));
     }
 
     Game::~Game() {
@@ -76,5 +77,13 @@ namespace av {
 
     sf::Texture& Game::getTexture(std::string name) {
         return m_textures[name];
+    }
+
+    void Game::pushSound(std::string name, sf::SoundBuffer& sound) {
+        m_sounds[name] = sound;
+    }
+
+    sf::SoundBuffer& Game::getSound(std::string name) {
+        return m_sounds[name];
     }
 }

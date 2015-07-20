@@ -37,6 +37,10 @@ namespace av {
         m_components[id] = component;
     }
 
+    IGuiComponent* Gui::getComponent(int id) {
+        return m_components[id];
+    }
+
     void Gui::removeComponent(int id) {
         m_components.erase(id);
     }

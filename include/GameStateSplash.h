@@ -2,6 +2,7 @@
 #define GAME_STATE_SPLASH_H
 
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 #include "IGameState.h"
 

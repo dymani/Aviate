@@ -17,6 +17,7 @@ namespace av {
         void handleInput(sf::Event& windowEvent);
         void draw();
         void pushComponent(IGuiComponent* component, int id);
+        IGuiComponent* getComponent(int id);
         void removeComponent(int id);
         void setCursorVisible(bool isCursorVisible);
     private:

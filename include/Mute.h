@@ -1,21 +1,22 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef MUTE_H
+#define MUTE_H
 
 #include "IGuiComponent.h"
 
 namespace av {
-    class Button: public IGuiComponent {
+    class Mute: public IGuiComponent {
     public:
-        const static int WIDTH = 36 * 6, HEIGHT = 12 * 6;
-        Button(Game& game, int x, int y, int id);
+        const static int WIDTH = 8 * 6, HEIGHT = 8 * 6;
+        Mute(Game& game, int x, int y);
         bool update();
         void draw(sf::RenderWindow& window);
         bool handleInput(sf::Event& windowEvent);
+        bool getStatus();
     private:
         enum ButtonState {
             IDLE, HOVER, PRESSED, LEFT, RELEASED
         } m_state;
-        int m_id;
+        bool m_mute;
         sf::Sprite m_sprite;
     };
 }

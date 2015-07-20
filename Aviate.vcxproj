@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Bot.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameStateSplash.cpp" />
@@ -82,16 +83,24 @@
     <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
+    <ClCompile Include="src\Mute.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bot.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameStateGame.h" />
     <ClInclude Include="include\GameStateSplash.h" />
     <ClInclude Include="include\GameStateTitle.h" />
     <ClInclude Include="include\Gui.h" />
     <ClInclude Include="include\IGameState.h" />
     <ClInclude Include="include\IGuiComponent.h" />
     <ClInclude Include="include\Mouse.h" />
+    <ClInclude Include="include\Mute.h" />
+    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
