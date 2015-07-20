@@ -75,16 +75,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameStateSplash.cpp" />
     <ClCompile Include="src\GameStateTitle.cpp" />
+    <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameStateSplash.h" />
     <ClInclude Include="include\GameStateTitle.h" />
+    <ClInclude Include="include\Gui.h" />
     <ClInclude Include="include\IGameState.h" />
+    <ClInclude Include="include\IGuiComponent.h" />
+    <ClInclude Include="include\Mouse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

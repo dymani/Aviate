@@ -40,7 +40,7 @@ namespace av {
     void GameStateSplash::update() {
         switch(m_state) {
             case START:
-                m_brightness += 3;
+                m_brightness += 5;
                 if(m_brightness >= 255) {
                     m_brightness = 255;
                     m_state = PAUSE;
@@ -50,12 +50,12 @@ namespace av {
                 break;
             case PAUSE:
                 m_splashPauseCount++;
-                if(m_splashPauseCount >= 50) {
+                if(m_splashPauseCount >= 10) {
                     m_state = END;
                 }
                 break;
             case END:
-                m_brightness -= 3;
+                m_brightness -= 5;
                 if(m_brightness <= 0) {
                     m_brightness = 0;
                     if(m_splashNo == 0) {

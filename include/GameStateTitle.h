@@ -2,6 +2,8 @@
 #define GAME_STATE_TITLE_H
 
 #include "IGameState.h"
+#include "Gui.h"
+#include "Button.h"
 
 namespace av {
     class Game;
@@ -14,6 +16,7 @@ namespace av {
         void handleInput();
     private:
         sf::Sprite m_background, m_overlay, m_title;
+        Gui m_gui;
     };
 }
 
