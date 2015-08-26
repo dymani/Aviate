@@ -3,18 +3,27 @@
 
 #include "IGameState.h"
 #include "Player.h"
+#include "Gui.h"
+#include "Button.h"
+#include "Sound.h"
+#include "Mute.h"
 
 namespace av {
     class Game;
 
-    class GameStateTitle: public IGameState {
+    class GameStateGame: public IGameState {
     public:
-        GameStateTitle(Game& game);
+        GameStateGame(Game& game);
+        ~GameStateGame();
         void draw(const double dt);
         void update();
         void handleInput();
     private:
-        sf::Sprite m_background, m_overlay;
+        sf::Sprite m_background, m_decoration, m_overlay;
+        Gui m_gui;
+        Player m_player;
+        Sound m_music;
+        Mute* m_mute;
     };
 }
 

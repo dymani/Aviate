@@ -12,6 +12,7 @@ namespace av {
         void draw(sf::RenderWindow& window);
         bool handleInput(sf::Event& windowEvent);
         bool getStatus();
+        void setStatus(bool mute);
     private:
         enum ButtonState {
             IDLE, HOVER, PRESSED, LEFT, RELEASED

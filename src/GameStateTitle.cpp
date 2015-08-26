@@ -1,6 +1,7 @@
 #include "GameStateTitle.h"
 #include "Game.h"
 #include <iostream>
+#include "GameStateGame.h"
 
 namespace av {
     GameStateTitle::GameStateTitle(Game& game):IGameState(game), m_gui(game), m_bot(game) {
@@ -43,8 +44,9 @@ namespace av {
         m_bot.update();
         switch(m_gui.update()) {
             case 0:
-                std::cout << "pressed\n";
-                break;
+                m_music.stop();
+                m_game.changeState(new GameStateGame(m_game));
+                return;
             case 1:
                 m_game.getWindow().close();
                 return;
@@ -63,12 +65,22 @@ namespace av {
             m_gui.handleInput(windowEvent);
             switch(windowEvent.type) {
                 case sf::Event::Closed:
+                    m_music.stop();
                     m_game.getWindow().close();
                     return;
                 case sf::Event::KeyPressed:
                     if(windowEvent.key.code == sf::Keyboard::Escape) {
+                        m_music.stop();
                         m_game.getWindow().close();
                         return;
+                    } else if(windowEvent.key.code == sf::Keyboard::M) {
+                        m_mute->setStatus(!m_mute->getStatus());
+                        if(m_mute->getStatus()) {
+                            m_music.stop();
+                        } else {
+                            m_music.play(true);
+                        }
+                        break;
                     }
                     break;
             }

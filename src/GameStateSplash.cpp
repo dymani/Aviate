@@ -22,11 +22,14 @@ namespace av {
             m_game.pushTexture("twilight", twilight);
         }
         {
-            sf::SoundBuffer title;
-            if(!title.loadFromFile("assets/sounds/title.wav")) {
+            sf::SoundBuffer title, game;
+            if(!title.loadFromFile("assets/sounds/title.wav")
+                || !game.loadFromFile("assets/sounds/game.wav")) {
                 m_game.getWindow().close();
             }
             m_game.pushSound("title", title);
+            m_game.pushSound("game", game);
+
         }
         m_splash.setTexture(game.getTexture("splash0"));
         m_splash.setPosition(0, 0);

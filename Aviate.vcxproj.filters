@@ -18,7 +18,16 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Bot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameStateGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameStateSplash.cpp">
@@ -33,27 +42,27 @@
     <ClCompile Include="src\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Button.cpp">
+    <ClCompile Include="src\Mute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Sound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\IGameState.h">
+    <ClInclude Include="include\GameStateGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GameStateSplash.h">
@@ -65,29 +74,26 @@
     <ClInclude Include="include\Gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\IGameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\IGuiComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameStateGame.h">
+    <ClInclude Include="include\Mute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Bot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Mute.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

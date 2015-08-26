@@ -72,4 +72,13 @@ namespace av {
     bool Mute::getStatus() {
         return m_mute;
     }
+
+    void Mute::setStatus(bool mute) {
+        m_mute = mute;
+        if(m_mute) {
+            m_sprite.setTextureRect({63, 65, 8, 8});
+        } else {
+            m_sprite.setTextureRect({53, 65, 8, 8});
+        }
+    }
 }
