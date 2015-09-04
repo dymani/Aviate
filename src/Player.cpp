@@ -20,14 +20,15 @@ namespace av {
         sf::Vector2f coord = m_coord;
         int mouseX = int(sf::Mouse::getPosition(m_game.getWindow()).x / 6);
         if(mouseX > coord.x) {
+            m_facingLeft = false;
             m_speedX = 10.0F * (mouseX - coord.x) / 64;
-           
-                m_velocity.x += 0.5F;
-                m_velocity.x = m_velocity.x > m_speedX?m_speedX:m_velocity.x;
+            m_velocity.x += 0.5F;
+            m_velocity.x = m_velocity.x > m_speedX?m_speedX:m_velocity.x;
         } else if(mouseX < coord.x) {
+            m_facingLeft = true;
             m_speedX = -10.0F * (coord.x - mouseX) / 64;
-                m_velocity.x -= 0.5F;
-                m_velocity.x = m_velocity.x < m_speedX?m_speedX:m_velocity.x;
+            m_velocity.x -= 0.5F;
+            m_velocity.x = m_velocity.x < m_speedX?m_speedX:m_velocity.x;
         }
         coord.x += m_velocity.x;
         switch(m_state) {
@@ -35,6 +36,7 @@ namespace av {
                 break;
             case FALLING:
                 m_speedY -= GRAVITY;
+                m_speedY = m_speedY > 20?20:m_speedY;
             case FLYING:
                 m_velocity.y = sqrt(150.0F - m_velocity.x * m_velocity.x) * m_speedY / 10;
                 if(coord.y + m_velocity.y > 0) {
@@ -75,21 +77,18 @@ namespace av {
         } else {
             if(m_state == FLYING) m_state = FALLING;
         }
-        //if(m_game.getWindow().hasFocus() == false) {
-        //    if(m_state == FLYING) {
-        //        m_state = IDLE;
-        //        m_coord.y = 0;
-        //        std::cout << "Not flying\n";
-        //    }
-        //}
     }
 
     void Player::draw() {
-        //if(m_facingLeft)
-        //    m_sprite.setTextureRect({9, 0, 9, 9});
-        //else
-        //    m_sprite.setTextureRect({9, 9, 9, 9});
+        if(m_facingLeft)
+            m_sprite.setTextureRect({9, 0, 9, 9});
+        else
+            m_sprite.setTextureRect({9, 9, 9, 9});
         m_sprite.setPosition(float(m_coord.x - 4.5) * 6, float((82 - m_coord.y) * 6));
         m_game.getWindow().draw(m_sprite);
+    }
+
+    sf::Vector2f Player::getCoord() {
+        return m_coord;
     }
 }

@@ -8,7 +8,7 @@ namespace av {
         m_settings.antialiasingLevel = 2;
         m_settings.majorVersion = 3;
         m_settings.minorVersion = 0;
-        m_window.create(sf::VideoMode(64 * 6, 96 * 6), "Aviate v1.0", sf::Style::Close, m_settings);
+        m_window.create(sf::VideoMode(384, 576), "Aviate v1.0", sf::Style::Close, m_settings);
         m_window.setKeyRepeatEnabled(true);
         m_icon.loadFromFile("assets/textures/icon.png");
         m_window.setIcon(m_icon.getSize().x, m_icon.getSize().y, m_icon.copyToImage().getPixelsPtr());

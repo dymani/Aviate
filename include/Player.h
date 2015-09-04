@@ -15,6 +15,7 @@ namespace av {
         void update();
         void handleInput(sf::Event& windowEvent);
         void draw();
+        sf::Vector2f getCoord();
     protected:
         Game& m_game;
         sf::Vector2f m_coord;

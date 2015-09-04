@@ -24,6 +24,9 @@ namespace av {
         Player m_player;
         Sound m_music;
         Mute* m_mute;
+        sf::View m_view;
+        bool m_pauseState;
+        sf::RectangleShape m_dim;
     };
 }
 
