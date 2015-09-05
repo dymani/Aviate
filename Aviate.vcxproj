@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\StaminaBar.cpp" />
     <ClCompile Include="src\Bot.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="include\Mute.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Sound.h" />
+    <ClInclude Include="include\StaminaBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

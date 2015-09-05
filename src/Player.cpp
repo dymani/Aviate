@@ -58,8 +58,12 @@ namespace av {
     }
 
     void Player::handleInput(sf::Event& windowEvent) {
-        if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return)
-            m_coord = {32, 0};
+#if _DEBUG
+        if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return) {
+            m_stamina = rand() % 100;
+            std::cout << m_stamina << std::endl;
+        }
+#endif
         if(windowEvent.type == sf::Event::KeyPressed) {
             if(windowEvent.key.code == sf::Keyboard::Space) {
                 m_spaceState = true;
@@ -90,5 +94,13 @@ namespace av {
 
     sf::Vector2f Player::getCoord() {
         return m_coord;
+    }
+
+    int Player::getStamina() {
+        return m_stamina;
+    }
+
+    int Player::getState() {
+        return m_state;
     }
 }

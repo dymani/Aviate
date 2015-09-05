@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "Sound.h"
 #include "Mute.h"
+#include "StaminaBar.h"
 
 namespace av {
     class Game;
@@ -27,6 +28,7 @@ namespace av {
         sf::View m_view;
         bool m_pauseState;
         sf::RectangleShape m_dim;
+        StaminaBar m_stamina;
     };
 }
 

@@ -16,6 +16,8 @@ namespace av {
         void handleInput(sf::Event& windowEvent);
         void draw();
         sf::Vector2f getCoord();
+        int getStamina();
+        int getState();
     protected:
         Game& m_game;
         sf::Vector2f m_coord;
@@ -25,6 +27,7 @@ namespace av {
         bool m_facingLeft;
         sf::Sprite m_sprite;
         bool m_spaceState;
+        int m_stamina;
     };
 }
 
