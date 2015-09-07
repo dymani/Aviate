@@ -8,6 +8,7 @@
 #include "Sound.h"
 #include "Mute.h"
 #include "StaminaBar.h"
+#include "Metre.h"
 
 namespace av {
     class Game;
@@ -29,6 +30,7 @@ namespace av {
         bool m_pauseState;
         sf::RectangleShape m_dim;
         StaminaBar m_stamina;
+        Metre m_metre;
     };
 }
 

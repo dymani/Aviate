@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Metre.cpp" />
     <ClCompile Include="src\StaminaBar.cpp" />
     <ClCompile Include="src\Bot.cpp" />
     <ClCompile Include="src\Button.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="include\Gui.h" />
     <ClInclude Include="include\IGameState.h" />
     <ClInclude Include="include\IGuiComponent.h" />
+    <ClInclude Include="include\Metre.h" />
     <ClInclude Include="include\Mouse.h" />
     <ClInclude Include="include\Mute.h" />
     <ClInclude Include="include\Player.h" />

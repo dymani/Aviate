@@ -6,7 +6,7 @@
 namespace av {
     GameStateTitle::GameStateTitle(Game& game):IGameState(game), m_gui(game), m_bot(game) {
         m_background.setTexture(m_game.getTexture("twilight"));
-        m_background.setTextureRect({64, 0, 64, 96});
+        m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
         m_decoration.setTexture(m_game.getTexture("twilight"));
         m_decoration.setTextureRect({0, 0, 64, 96});
@@ -14,7 +14,7 @@ namespace av {
         m_title.setTexture(m_game.getTexture("title"));
         m_title.setScale({6.0F, 6.0F});
         m_overlay.setTexture(m_game.getTexture("twilight"));
-        m_overlay.setTextureRect({128, 0, 64, 96});
+        m_overlay.setTextureRect({0, 96, 64, 96});
         m_overlay.setScale({6.0F, 6.0F});
         m_gui.setCursorVisible(0);
         m_gui.pushComponent(new Button(game, 14 * 6, 54 * 6, 0), 0);

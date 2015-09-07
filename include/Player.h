@@ -28,6 +28,7 @@ namespace av {
         sf::Sprite m_sprite;
         bool m_spaceState;
         int m_stamina;
+        int m_frame, m_interval;
     };
 }
 

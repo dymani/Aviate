@@ -3,15 +3,15 @@
 #include "GameStateTitle.h"
 
 namespace av {
-    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game), m_stamina(game, m_player) {
+    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game), m_stamina(game, m_player), m_metre(game, m_player) {
         m_background.setTexture(m_game.getTexture("twilight"));
-        m_background.setTextureRect({64, 0, 64, 96});
+        m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
         m_decoration.setTexture(m_game.getTexture("twilight"));
         m_decoration.setTextureRect({0, 0, 64, 96});
         m_decoration.setScale({6.0F, 6.0F});
         m_overlay.setTexture(m_game.getTexture("twilight"));
-        m_overlay.setTextureRect({128, 0, 64, 96});
+        m_overlay.setTextureRect({0, 96, 64, 96});
         m_overlay.setScale({6.0F, 6.0F});
         m_gui.setCursorVisible(0);
         m_mute = new Mute(m_game, 1 * 6, 87 * 6);
@@ -39,6 +39,7 @@ namespace av {
         m_game.getWindow().draw(m_overlay);
         m_game.getWindow().setView(m_game.getWindow().getDefaultView());
         m_stamina.draw();
+        m_metre.draw();
         if(m_pauseState) {
             m_game.getWindow().draw(m_dim);
             m_gui.draw();
@@ -50,10 +51,13 @@ namespace av {
         if(!m_pauseState) {
             m_player.update();
             m_stamina.update();
+            m_metre.update();
             if(m_player.getCoord().y > 48) {
-                m_view.setCenter(192, 288 - (m_player.getCoord().y - 48) * 6);
+                m_view.setCenter(192, 288.0F - int((m_player.getCoord().y - 48) * 6));
+                m_background.setTextureRect({64, 384 - int(m_player.getCoord().y / 3000 * 384), 64, 96});
             } else {
                 m_view.setCenter(192, 288);
+                m_background.setTextureRect({64, 384, 64, 96});
             }
         }
         switch(m_gui.update()) {

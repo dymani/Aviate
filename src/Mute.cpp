@@ -8,7 +8,7 @@ namespace av {
         m_mute = false;
         m_state = IDLE;
         m_sprite.setTexture(game.getTexture("gui"));
-        m_sprite.setTextureRect({53, 77, 8, 8});
+        m_sprite.setTextureRect({53, 79, 8, 8});
         m_sprite.setScale({6.0F, 6.0F});
         m_sprite.setPosition(float(x), float(y));
     }
@@ -18,9 +18,9 @@ namespace av {
             m_state = HOVER;
             m_mute = !m_mute;
             if(m_mute) {
-                m_sprite.setTextureRect({63, 77, 8, 8});
+                m_sprite.setTextureRect({63, 79, 8, 8});
             } else {
-                m_sprite.setTextureRect({53, 77, 8, 8});
+                m_sprite.setTextureRect({53, 79, 8, 8});
             }
             return true;
         } else {
@@ -76,9 +76,9 @@ namespace av {
     void Mute::setStatus(bool mute) {
         m_mute = mute;
         if(m_mute) {
-            m_sprite.setTextureRect({63, 77, 8, 8});
+            m_sprite.setTextureRect({63, 79, 8, 8});
         } else {
-            m_sprite.setTextureRect({53, 77, 8, 8});
+            m_sprite.setTextureRect({53, 79, 8, 8});
         }
     }
 }
