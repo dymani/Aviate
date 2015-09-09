@@ -8,15 +8,17 @@
 
 namespace av {
     class Game;
+    class Buff;
 
     class Player {
     public:
-        Player(Game& game);
+        Player(Game& game, std::vector<Buff*>& buffs);
         void update();
         void handleInput(sf::Event& windowEvent);
         void draw();
         sf::Vector2f getCoord();
         int getStamina();
+        void setStamina(int stamina);
         int getState();
     protected:
         Game& m_game;
@@ -29,6 +31,7 @@ namespace av {
         bool m_spaceState;
         int m_stamina;
         int m_frame, m_interval;
+        std::vector<Buff*>& m_buffs;
     };
 }
 

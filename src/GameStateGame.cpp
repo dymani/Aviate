@@ -3,7 +3,7 @@
 #include "GameStateTitle.h"
 
 namespace av {
-    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game), m_stamina(game, m_player), m_metre(game, m_player) {
+    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player) {
         m_background.setTexture(m_game.getTexture("twilight"));
         m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
@@ -24,6 +24,10 @@ namespace av {
         m_dim.setPosition(0, 0);
         m_dim.setSize({384, 576});
         m_dim.setFillColor(sf::Color(0, 0, 0, 200));
+        m_buffs.clear();
+        for(int i = 0; i < 10; i++) {
+            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
+        }
     }
 
     GameStateGame::~GameStateGame() {
@@ -36,6 +40,9 @@ namespace av {
         m_game.getWindow().setView(m_view);
         m_game.getWindow().draw(m_decoration);
         m_player.draw();
+        for(auto& buff : m_buffs) {
+            buff->draw();
+        }
         m_game.getWindow().draw(m_overlay);
         m_game.getWindow().setView(m_game.getWindow().getDefaultView());
         m_stamina.draw();
@@ -52,6 +59,9 @@ namespace av {
             m_player.update();
             m_stamina.update();
             m_metre.update();
+            for(auto& buff : m_buffs) {
+                buff->update();
+            }
             if(m_player.getCoord().y > 48) {
                 m_view.setCenter(192, 288.0F - int((m_player.getCoord().y - 48) * 6));
                 m_background.setTextureRect({64, 384 - int(m_player.getCoord().y / 3000 * 384), 64, 96});
@@ -113,6 +123,11 @@ namespace av {
                             m_music.play(true);
                         }
                         break;
+                    } else if(windowEvent.key.code == sf::Keyboard::Return) {
+#if _DEBUG
+                        m_buffs.clear();
+                        m_buffs.push_back(new Buff(m_game, m_player, {10, 10}, 2));
+#endif
                     }
                     break;
             }

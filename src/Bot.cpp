@@ -54,7 +54,7 @@ namespace av {
 
     void Bot::draw() {
         m_sprite.setTextureRect({m_frame == 3?9:m_frame * 9, !m_left * 9, 9, 9});
-        m_sprite.setPosition(float(m_coord.x - 4.5) * 6, float(82 * 6));
+        m_sprite.setPosition(float(int((m_coord.x - 4.5) * 6)), 492.0F);
         m_game.getWindow().draw(m_sprite);
     }
 }

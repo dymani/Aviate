@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Buff.cpp" />
     <ClCompile Include="src\Metre.cpp" />
     <ClCompile Include="src\StaminaBar.cpp" />
     <ClCompile Include="src\Bot.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bot.h" />
+    <ClInclude Include="include\Buff.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameStateGame.h" />

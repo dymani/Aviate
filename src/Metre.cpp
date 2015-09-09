@@ -16,7 +16,7 @@ namespace av {
 
     void Metre::update() {
         m_height = m_player.getCoord().y;
-        m_icon.setPosition({348, float(252 - m_height / 20)});
+        m_icon.setPosition({348, float(int(252 - m_height / 20))});
     }
 
     void Metre::draw() {

@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "Game.h"
+#include "Buff.h"
 
 namespace av {
-    Player::Player(Game& game):m_game(game) {
+    Player::Player(Game& game, std::vector<Buff*>& buffs):m_game(game), m_buffs(buffs) {
         m_coord = {32, 0};
         m_state = IDLE;
         m_velocity = {0, 0};
@@ -12,7 +13,7 @@ namespace av {
         m_sprite.setTexture(game.getTexture("sprite"));
         m_sprite.setScale({6.0F, 6.0F});
         m_sprite.setTextureRect({9, 0, 9, 9});
-        m_sprite.setPosition(float(m_coord.x - 4.5) * 6, float(82 * 6));
+        m_sprite.setPosition(float(int((m_coord.x - 4.5) * 6)), float(82 * 6));
         m_spaceState = false;
         m_frame = 1;
         m_interval = 0;
@@ -40,6 +41,11 @@ namespace av {
         coord.x += m_velocity.x;
         switch(m_state) {
             case IDLE:
+                if(coord.x <= 0) {
+                    coord.x = 0;
+                } else if(coord.x >= 64) {
+                    coord.x = 64;
+                }
                 break;
             case FALLING:
                 m_speedY -= GRAVITY;
@@ -56,12 +62,21 @@ namespace av {
                 }
                 if(m_state == FLYING)
                     m_stamina -= int(m_velocity.y * 10);
+                if(coord.x <= 0) {
+                    coord.x = 0;
+                } else if(coord.x >= 64) {
+                    coord.x = 64;
+                }
+                sf::FloatRect collisionBox = {coord.x - 4.5F, float(coord.y), 9, 9};
+                for(unsigned int i = 0; i < m_buffs.size();) {
+                    if(collisionBox.intersects(m_buffs.at(i)->getCollisionBox())) {
+                        m_buffs.at(i)->collect();
+                        m_buffs.erase(m_buffs.begin() + i);
+                        continue;
+                    }
+                    i++;
+                }
                 break;
-        }
-        if(coord.x <= 0) {
-            coord.x = 0;
-        } else if(coord.x >= 64) {
-            coord.x = 64;
         }
         m_coord = coord;
         m_interval++;
@@ -145,7 +160,7 @@ namespace av {
                 m_sprite.setTextureRect({36, 0, 9, 9});
             }
         }
-        m_sprite.setPosition(float(m_coord.x - 4.5) * 6, float((82 - m_coord.y) * 6));
+        m_sprite.setPosition(float(int((m_coord.x - 4.5) * 6)), float(int((82 - m_coord.y) * 6)));
         m_game.getWindow().draw(m_sprite);
     }
 
@@ -154,7 +169,15 @@ namespace av {
     }
 
     int Player::getStamina() {
-        return int(m_stamina / 100);
+        return m_stamina;
+    }
+
+    void Player::setStamina(int stamina) {
+        if(stamina > 10000)
+            stamina = 10000;
+        else if(stamina < 0)
+            stamina = 0;
+        m_stamina = stamina;
     }
 
     int Player::getState() {

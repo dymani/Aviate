@@ -9,6 +9,7 @@
 #include "Mute.h"
 #include "StaminaBar.h"
 #include "Metre.h"
+#include "Buff.h"
 
 namespace av {
     class Game;
@@ -31,6 +32,7 @@ namespace av {
         sf::RectangleShape m_dim;
         StaminaBar m_stamina;
         Metre m_metre;
+        std::vector<Buff*> m_buffs;
     };
 }
 

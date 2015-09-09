@@ -19,7 +19,7 @@ namespace av {
     }
 
     void StaminaBar::update() {
-        m_stamina = m_player.getStamina();
+        m_stamina = int(m_player.getStamina() / 100);
     }
 
     void StaminaBar::draw() {
