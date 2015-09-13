@@ -3,7 +3,7 @@
 #include "GameStateTitle.h"
 
 namespace av {
-    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player) {
+    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player), m_bpCounter(game, m_player) {
         m_background.setTexture(m_game.getTexture("twilight"));
         m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
@@ -27,6 +27,7 @@ namespace av {
         m_buffs.clear();
         for(int i = 0; i < 10; i++) {
             m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
+            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 0));
         }
     }
 
@@ -47,6 +48,7 @@ namespace av {
         m_game.getWindow().setView(m_game.getWindow().getDefaultView());
         m_stamina.draw();
         m_metre.draw();
+        m_bpCounter.draw();
         if(m_pauseState) {
             m_game.getWindow().draw(m_dim);
             m_gui.draw();
@@ -59,6 +61,7 @@ namespace av {
             m_player.update();
             m_stamina.update();
             m_metre.update();
+            m_bpCounter.update();
             for(auto& buff : m_buffs) {
                 buff->update();
             }

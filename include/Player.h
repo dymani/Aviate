@@ -20,6 +20,8 @@ namespace av {
         int getStamina();
         void setStamina(int stamina);
         int getState();
+        int getBp();
+        void setBp(int bp);
     protected:
         Game& m_game;
         sf::Vector2f m_coord;
@@ -32,6 +34,7 @@ namespace av {
         int m_stamina;
         int m_frame, m_interval;
         std::vector<Buff*>& m_buffs;
+        int m_bp;
     };
 }
 

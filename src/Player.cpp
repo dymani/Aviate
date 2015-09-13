@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 #include "Buff.h"
+#define INTERVEL 10
 
 namespace av {
     Player::Player(Game& game, std::vector<Buff*>& buffs):m_game(game), m_buffs(buffs) {
@@ -18,6 +19,7 @@ namespace av {
         m_frame = 1;
         m_interval = 0;
         m_stamina = 10000;
+        m_bp = 0;
     }
 
     void Player::update() {
@@ -86,6 +88,8 @@ namespace av {
 #if _DEBUG
         if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return) {
             m_stamina = 10000;
+            m_bp = rand() % 1000;
+            std::cout << m_bp << std::endl;
         }
 #endif
         if(windowEvent.type == sf::Event::KeyPressed) {
@@ -122,14 +126,16 @@ namespace av {
                         m_sprite.setTextureRect({0, 0, 9, 9});
                         break;
                     case 1:
+                    case 3:
                         m_sprite.setTextureRect({9, 0, 9, 9});
                         break;
                     case 2:
                         m_sprite.setTextureRect({18, 0, 9, 9});
                         break;
                 }
-                if(m_interval >= 200) {
-                    m_frame = m_frame == 2?0:m_frame + 1;
+                if(m_interval >= INTERVEL) {
+                    m_frame = m_frame == 3?0:m_frame + 1;
+                    m_interval = 0;
                 }
             } else if(m_state == FLYING) {
                 m_sprite.setTextureRect({27, 0, 9, 9});
@@ -145,14 +151,16 @@ namespace av {
                         m_sprite.setTextureRect({0, 9, 9, 9});
                         break;
                     case 1:
+                    case 3:
                         m_sprite.setTextureRect({9, 9, 9, 9});
                         break;
                     case 2:
                         m_sprite.setTextureRect({18, 9, 9, 9});
                         break;
                 }
-                if(m_interval >= 200) {
-                    m_frame = m_frame == 2?0:m_frame + 1;
+                if(m_interval >= INTERVEL) {
+                    m_frame = m_frame == 3?0:m_frame + 1;
+                    m_interval = 0;
                 }
             } else if(m_state == FLYING) {
                 m_sprite.setTextureRect({27, 9, 9, 9});
@@ -182,5 +190,13 @@ namespace av {
 
     int Player::getState() {
         return m_state;
+    }
+
+    int Player::getBp() {
+        return m_bp;
+    }
+
+    void Player::setBp(int bp) {
+        m_bp = bp;
     }
 }

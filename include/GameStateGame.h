@@ -10,6 +10,7 @@
 #include "StaminaBar.h"
 #include "Metre.h"
 #include "Buff.h"
+#include "BpCounter.h"
 
 namespace av {
     class Game;
@@ -33,6 +34,7 @@ namespace av {
         StaminaBar m_stamina;
         Metre m_metre;
         std::vector<Buff*> m_buffs;
+        BpCounter m_bpCounter;
     };
 }
 

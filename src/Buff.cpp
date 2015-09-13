@@ -36,6 +36,7 @@ namespace av {
     void Buff::collect() {
         switch(m_type) {
             case BP:
+                m_player.setBp(m_player.getBp() + 1);
                 break;
             case LVL:
                 break;
@@ -52,6 +53,7 @@ namespace av {
     sf::FloatRect Buff::getCollisionBox() {
         switch(m_type) {
             case BP:
+                return{m_coord.x - 2.5F, m_coord.y - 3.5F, 5, 7};
             case LVL:
             case STM:
                 return{m_coord.x - 1.5F, m_coord.y - 1.5F, 3, 3};
