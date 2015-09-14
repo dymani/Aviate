@@ -14,12 +14,17 @@ namespace av {
         m_sprite.setTexture(game.getTexture("sprite"));
         m_sprite.setScale({6.0F, 6.0F});
         m_sprite.setTextureRect({9, 0, 9, 9});
-        m_sprite.setPosition(float(int((m_coord.x - 4.5) * 6)), float(82 * 6));
+        m_sprite.setOrigin(4.5F, 0.0F);
+        m_sprite.setPosition(float(m_coord.x * 6), float(82 * 6));
         m_spaceState = false;
         m_frame = 1;
         m_interval = 0;
         m_stamina = 10000;
         m_bp = 0;
+        m_box.setFillColor({0, 0, 0, 0});
+        m_box.setOutlineColor(sf::Color::Green);
+        m_box.setOutlineThickness(2.0F);
+        m_box.setSize({18.0F, 48.0F});
     }
 
     void Player::update() {
@@ -69,7 +74,7 @@ namespace av {
                 } else if(coord.x >= 64) {
                     coord.x = 64;
                 }
-                sf::FloatRect collisionBox = {coord.x - 4.5F, float(coord.y), 9, 9};
+                sf::FloatRect collisionBox = {coord.x - 1.5F, coord.y - 1.0F, 3, 8};
                 for(unsigned int i = 0; i < m_buffs.size();) {
                     if(collisionBox.intersects(m_buffs.at(i)->getCollisionBox())) {
                         m_buffs.at(i)->collect();
@@ -117,6 +122,10 @@ namespace av {
     }
 
     void Player::draw() {
+#if _DEBUG
+        m_box.setPosition((m_coord.x - 1.5F) * 6, (82.0F - m_coord.y + 1.0F) * 6);
+        m_game.getWindow().draw(m_box);
+#endif
         if(m_facingLeft) {
             if(m_velocity.x > -0.2 && m_state == IDLE) {
                 m_sprite.setTextureRect({9, 0, 9, 9});
@@ -168,12 +177,16 @@ namespace av {
                 m_sprite.setTextureRect({36, 0, 9, 9});
             }
         }
-        m_sprite.setPosition(float(int((m_coord.x - 4.5) * 6)), float(int((82 - m_coord.y) * 6)));
+        m_sprite.setPosition(float(int(m_coord.x * 6)), float(int((82 - m_coord.y) * 6)));
         m_game.getWindow().draw(m_sprite);
     }
 
     sf::Vector2f Player::getCoord() {
         return m_coord;
+    }
+
+    sf::Vector2f Player::getVelocity() {
+        return m_velocity;
     }
 
     int Player::getStamina() {

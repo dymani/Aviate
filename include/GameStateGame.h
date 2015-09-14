@@ -19,8 +19,8 @@ namespace av {
     public:
         GameStateGame(Game& game);
         ~GameStateGame();
-        void draw(const double dt);
         void update();
+        void draw(const double dt);
         void handleInput();
     private:
         sf::Sprite m_background, m_decoration, m_overlay;
@@ -35,6 +35,7 @@ namespace av {
         Metre m_metre;
         std::vector<Buff*> m_buffs;
         BpCounter m_bpCounter;
+        float m_viewVelocity, m_viewCoord;
     };
 }
 

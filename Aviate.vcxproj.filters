@@ -116,9 +116,29 @@
     <ClInclude Include="include\BpCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
     <None Include=".gitignore" />
+    <None Include="Aviate.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\icon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aviate.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

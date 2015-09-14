@@ -17,6 +17,7 @@ namespace av {
         void handleInput(sf::Event& windowEvent);
         void draw();
         sf::Vector2f getCoord();
+        sf::Vector2f getVelocity();
         int getStamina();
         void setStamina(int stamina);
         int getState();
@@ -35,6 +36,7 @@ namespace av {
         int m_frame, m_interval;
         std::vector<Buff*>& m_buffs;
         int m_bp;
+        sf::RectangleShape m_box;
     };
 }
 

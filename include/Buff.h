@@ -23,6 +23,7 @@ namespace av {
         enum TYPE {
             BP, LVL, STM
         } m_type;
+        sf::RectangleShape m_box;
     };
 }
 

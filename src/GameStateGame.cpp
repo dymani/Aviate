@@ -29,31 +29,12 @@ namespace av {
             m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
             m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 0));
         }
+        m_viewCoord = 0;
+        m_viewVelocity = 0;
     }
 
     GameStateGame::~GameStateGame() {
         m_music.stop();
-    }
-
-    void GameStateGame::draw(const double dt) {
-        m_game.getWindow().clear(sf::Color::Black);
-        m_game.getWindow().draw(m_background);
-        m_game.getWindow().setView(m_view);
-        m_game.getWindow().draw(m_decoration);
-        m_player.draw();
-        for(auto& buff : m_buffs) {
-            buff->draw();
-        }
-        m_game.getWindow().draw(m_overlay);
-        m_game.getWindow().setView(m_game.getWindow().getDefaultView());
-        m_stamina.draw();
-        m_metre.draw();
-        m_bpCounter.draw();
-        if(m_pauseState) {
-            m_game.getWindow().draw(m_dim);
-            m_gui.draw();
-        }
-        m_game.getWindow().display();
     }
 
     void GameStateGame::update() {
@@ -65,13 +46,33 @@ namespace av {
             for(auto& buff : m_buffs) {
                 buff->update();
             }
-            if(m_player.getCoord().y > 48) {
-                m_view.setCenter(192, 288.0F - int((m_player.getCoord().y - 48) * 6));
-                m_background.setTextureRect({64, 384 - int(m_player.getCoord().y / 3000 * 384), 64, 96});
-            } else {
-                m_view.setCenter(192, 288);
-                m_background.setTextureRect({64, 384, 64, 96});
+            if(m_player.getState() == 0) {
+                m_viewCoord = 0;
+                m_viewVelocity = 0;
+            } else if(m_player.getState() == 1) {
+                if(m_player.getCoord().y <= 48) {
+                    m_viewVelocity = 0;
+                } else if(m_player.getCoord().y - m_viewCoord > 52) {
+                    m_viewVelocity += 1.0F;
+                    m_viewVelocity = m_viewVelocity >= m_player.getVelocity().y + 1.0F?m_player.getVelocity().y + 1.0F:m_viewVelocity;
+                } else if(m_player.getCoord().y - m_viewCoord >= 48) {
+                    m_viewVelocity += 0.5F;
+                    m_viewVelocity = m_viewVelocity >= m_player.getVelocity().y?m_player.getVelocity().y:m_viewVelocity;
+                } else {
+                    m_viewVelocity += 0.2F;
+                }
+            } else if(m_player.getState() == 2) {
+                if(m_player.getCoord().y - m_viewCoord <= 24) {
+                    m_viewVelocity -= 0.5F;
+                    m_viewVelocity = m_viewVelocity <= m_player.getVelocity().y?m_player.getVelocity().y:m_viewVelocity;
+                } else if(m_player.getCoord().y <= 48) {
+
+                } else {
+                    m_viewVelocity -= 0.2F;
+                }
             }
+            m_viewCoord += m_viewVelocity;
+            if(m_viewCoord < 0) m_viewCoord = 0;
         }
         switch(m_gui.update()) {
             case 0:
@@ -91,6 +92,29 @@ namespace av {
                 m_game.changeState(new GameStateTitle(m_game));
                 return;
         }
+    }
+
+    void GameStateGame::draw(const double dt) {
+        m_game.getWindow().clear(sf::Color::Black);
+        m_game.getWindow().draw(m_background);
+        m_view.setCenter(192, float(int(288.0F - m_viewCoord * 6)));
+        m_background.setTextureRect({64, 384 - int(m_viewCoord / 3000 * 384), 64, 96});
+        m_game.getWindow().setView(m_view);
+        m_game.getWindow().draw(m_decoration);
+        m_player.draw();
+        for(auto& buff : m_buffs) {
+            buff->draw();
+        }
+        m_game.getWindow().draw(m_overlay);
+        m_game.getWindow().setView(m_game.getWindow().getDefaultView());
+        m_stamina.draw();
+        m_metre.draw();
+        m_bpCounter.draw();
+        if(m_pauseState) {
+            m_game.getWindow().draw(m_dim);
+            m_gui.draw();
+        }
+        m_game.getWindow().display();
     }
 
     void GameStateGame::handleInput() {

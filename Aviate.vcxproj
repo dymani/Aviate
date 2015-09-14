@@ -179,10 +179,20 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Sound.h" />
     <ClInclude Include="include\StaminaBar.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Aviate.aps" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\icon.ico" />
+    <Image Include="assets\textures\icon.png" />
+    <Image Include="icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aviate.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
