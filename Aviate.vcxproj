@@ -146,8 +146,10 @@
   <ItemGroup>
     <ClCompile Include="src\BpCounter.cpp" />
     <ClCompile Include="src\Buff.cpp" />
+    <ClCompile Include="src\GameStateEnd.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Metre.cpp" />
+    <ClCompile Include="src\Score.cpp" />
     <ClCompile Include="src\StaminaBar.cpp" />
     <ClCompile Include="src\Bot.cpp" />
     <ClCompile Include="src\Button.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="include\Buff.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameStateEnd.h" />
     <ClInclude Include="include\GameStateGame.h" />
     <ClInclude Include="include\GameStateSplash.h" />
     <ClInclude Include="include\GameStateTitle.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="include\Mouse.h" />
     <ClInclude Include="include\Mute.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Score.h" />
     <ClInclude Include="include\Sound.h" />
     <ClInclude Include="include\StaminaBar.h" />
     <ClInclude Include="resource.h" />
@@ -189,12 +193,25 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\textures\gui.png" />
     <Image Include="assets\textures\icon.ico" />
     <Image Include="assets\textures\icon.png" />
+    <Image Include="assets\textures\splash0.png" />
+    <Image Include="assets\textures\splash1-.png" />
+    <Image Include="assets\textures\splash1.png" />
+    <Image Include="assets\textures\sprite.png" />
+    <Image Include="assets\textures\title.png" />
+    <Image Include="assets\textures\twilight.png" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Aviate.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\game-.wav" />
+    <Media Include="assets\sounds\game.wav" />
+    <Media Include="assets\sounds\title-.wav" />
+    <Media Include="assets\sounds\title.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

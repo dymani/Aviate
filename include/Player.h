@@ -13,7 +13,7 @@ namespace av {
     class Player {
     public:
         Player(Game& game, std::vector<Buff*>& buffs);
-        void update();
+        bool update();
         void handleInput(sf::Event& windowEvent);
         void draw();
         sf::Vector2f getCoord();
@@ -25,6 +25,7 @@ namespace av {
         void setBp(int bp);
         int getLevel();
         void setLevel(int level);
+        float getLevelSpeed(int level = 0);
     protected:
         Game& m_game;
         sf::Vector2f m_coord;
@@ -40,6 +41,7 @@ namespace av {
         int m_bp;
         sf::RectangleShape m_box;
         int m_level;
+        std::vector<float> m_levelSpeed;
     };
 }
 

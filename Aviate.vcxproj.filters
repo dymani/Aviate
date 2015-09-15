@@ -66,6 +66,12 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameStateEnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Score.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bot.h">
@@ -125,6 +131,12 @@
     <ClInclude Include="include\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\GameStateEnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Score.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -141,10 +153,45 @@
     <Image Include="icon1.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\textures\gui.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\splash0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\splash1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\splash1-.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\sprite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\twilight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Aviate.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\game.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\sounds\game-.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\sounds\title.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\sounds\title-.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

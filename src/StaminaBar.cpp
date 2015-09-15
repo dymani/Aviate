@@ -16,10 +16,21 @@ namespace av {
         m_top.setTextureRect({0, 48, 11, 14});
         m_top.setPosition(0, 0);
         m_top.setScale(6, 6);
+        m_cover.setTexture(game.getTexture("gui"));
+        m_cover.setScale(6, 6);
+        m_hp = 44;
     }
 
-    void StaminaBar::update() {
+    bool StaminaBar::update() {
         m_stamina = int(m_player.getStamina() / 100);
+        if(m_end) {
+            m_hp -= 2;
+            m_cover.setTextureRect({10, 56, 44 - m_hp, 3});
+            m_cover.setPosition(66 + float(m_hp * 6), 30);
+            if(m_hp <= 0)
+                return true;
+        }
+        return false;
     }
 
     void StaminaBar::draw() {
@@ -28,5 +39,10 @@ namespace av {
         m_bar.setTextureRect({(55 - length), 63, length, 2});
         m_game.getWindow().draw(m_bar);
         m_game.getWindow().draw(m_top);
+        if(m_end) m_game.getWindow().draw(m_cover);
+    }
+
+    void StaminaBar::end() {
+        m_end = true;
     }
 }

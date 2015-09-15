@@ -34,10 +34,6 @@ namespace av {
         m_box.setOutlineThickness(2.0F);
     }
 
-    void Buff::update() {
-
-    }
-
     void Buff::draw() {
 #if _DEBUG
         m_game.getWindow().draw(m_box);
@@ -54,7 +50,7 @@ namespace av {
                 m_player.setLevel(m_player.getLevel() + 1);
                 break;
             case STM:
-                m_player.setStamina(m_player.getStamina() + 5000);
+                m_player.setStamina(m_player.getStamina() + 500);
                 break;
         }
     }

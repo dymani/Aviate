@@ -5,12 +5,13 @@
 namespace av {
     GameStateSplash::GameStateSplash(Game& game):IGameState(game) {
         {
-            sf::Texture splash0, splash1, gui, sprite, title, twilight;
+            sf::Texture splash0, splash1, gui, sprite, title, end, twilight;
             if(!splash0.loadFromFile("assets/textures/splash0.png")
                 || !splash1.loadFromFile("assets/textures/splash1.png")
                 || !gui.loadFromFile("assets/textures/gui.png")
                 || !sprite.loadFromFile("assets/textures/sprite.png")
                 || !title.loadFromFile("assets/textures/title.png")
+                || !end.loadFromFile("assets/textures/end.png")
                 || !twilight.loadFromFile("assets/textures/twilight.png")) {
                 m_game.getWindow().close();
             }
@@ -19,6 +20,7 @@ namespace av {
             m_game.pushTexture("gui", gui);
             m_game.pushTexture("sprite", sprite);
             m_game.pushTexture("title", title);
+            m_game.pushTexture("end", end);
             m_game.pushTexture("twilight", twilight);
         }
         {
@@ -39,7 +41,7 @@ namespace av {
         m_state = START;
         m_splashNo = 0;
     }
-    
+
     void GameStateSplash::draw(const double dt) {
         m_splash.setColor(sf::Color(m_brightness + int(dt * 3), m_brightness + int(dt * 3),
             m_brightness + int(dt * 3), 255));

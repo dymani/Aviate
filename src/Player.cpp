@@ -26,22 +26,24 @@ namespace av {
         m_box.setOutlineThickness(2.0F);
         m_box.setSize({18.0F, 48.0F});
         m_level = 1;
+        m_levelSpeed = {1.0F, 1.1F, 1.21F, 1.33F, 1.46F, 1.61F, 1.77F, 1.95F, 2.14F, 2.36F};
     }
 
-    void Player::update() {
+    bool Player::update() {
+        bool gameover = false;
         sf::Vector2f coord = m_coord;
         int mouseX = int(sf::Mouse::getPosition(m_game.getWindow()).x / 6);
         if(mouseX > coord.x) {
             if(mouseX - coord.x > 0.1) {
                 m_facingLeft = false;
-                m_speedX = 10.0F * (mouseX - coord.x) / 64;
+                m_speedX = 10.0F * (mouseX - coord.x) / 64 * getLevelSpeed();
                 m_velocity.x += 0.5F;
                 m_velocity.x = m_velocity.x > m_speedX?m_speedX:m_velocity.x;
             }
         } else if(mouseX < coord.x) {
             if(coord.x - mouseX > 0.1) {
                 m_facingLeft = true;
-                m_speedX = -10.0F * (coord.x - mouseX) / 64;
+                m_speedX = -10.0F * (coord.x - mouseX) / 64 * getLevelSpeed();
                 m_velocity.x -= 0.5F;
                 m_velocity.x = m_velocity.x < m_speedX?m_speedX:m_velocity.x;
             }
@@ -54,27 +56,37 @@ namespace av {
                 } else if(coord.x >= 64) {
                     coord.x = 64;
                 }
+                if(m_stamina <= 0)
+                    gameover = true;
                 break;
             case FALLING:
                 m_speedY -= GRAVITY;
                 m_speedY = m_speedY < -10?-10:m_speedY;
             case FLYING:
-                m_velocity.y = sqrt(150.0F - m_velocity.x * m_velocity.x) * m_speedY / 10;
+                if(m_state == FLYING)
+                    m_velocity.y = sqrt(150.0F - m_velocity.x * m_velocity.x) * m_speedY / 10
+                    * getLevelSpeed();
+                else
+                    m_velocity.y = sqrt(150.0F - m_velocity.x * m_velocity.x) * m_speedY / 10;
                 if(coord.y + m_velocity.y > 0) {
                     coord.y += m_velocity.y;
                 } else {
+                    if(m_speedY == -10)
+                        gameover = true;
                     coord.y = 0;
                     m_speedY = 0;
                     m_velocity.y = 0;
                     m_state = IDLE;
                 }
                 if(m_state == FLYING)
-                    m_stamina -= int(m_velocity.y * 10);
+                    m_stamina -= int(m_velocity.y * 50 * getLevelSpeed());
                 if(coord.x <= 0) {
                     coord.x = 0;
                 } else if(coord.x >= 64) {
                     coord.x = 64;
                 }
+                if(coord.y > 3000)
+                    gameover = true;
                 sf::FloatRect collisionBox = {coord.x - 1.5F, coord.y - 1.0F, 3, 8};
                 for(unsigned int i = 0; i < m_buffs.size();) {
                     if(collisionBox.intersects(m_buffs.at(i)->getCollisionBox())) {
@@ -88,6 +100,8 @@ namespace av {
         }
         m_coord = coord;
         m_interval++;
+        if(m_stamina < 0) m_stamina = 0;
+        return gameover;
     }
 
     void Player::handleInput(sf::Event& windowEvent) {
@@ -95,7 +109,7 @@ namespace av {
         if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return) {
             m_stamina = 10000;
             m_bp = rand() % 1000;
-            m_level = rand() & 10 + 1;
+            m_level = rand() % 10 + 1;
         }
 #endif
         if(windowEvent.type == sf::Event::KeyPressed) {
@@ -111,7 +125,8 @@ namespace av {
             if(m_spaceState) {
                 if(m_state != FLYING) {
                     m_state = FLYING;
-                    m_speedY = 1.0F;
+                    m_speedY = 0.5F;
+                    m_stamina -= int(100 * getLevelSpeed());
                 }
             } else {
                 if(m_state == FLYING) m_state = FALLING;
@@ -221,5 +236,11 @@ namespace av {
     void Player::setLevel(int level) {
         if(level > 0 && level <= 10)
             m_level = level;
+    }
+
+    float Player::getLevelSpeed(int level) {
+        if(level == 0) level = m_level;
+        if(level < 0 || level > 10) return 1;
+        return m_levelSpeed[level - 1];
     }
 }

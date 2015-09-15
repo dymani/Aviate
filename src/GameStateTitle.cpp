@@ -17,7 +17,7 @@ namespace av {
         m_overlay.setTextureRect({0, 96, 64, 96});
         m_overlay.setScale({6.0F, 6.0F});
         m_gui.setCursorVisible(0);
-        m_gui.pushComponent(new Button(game, 14 * 6, 54 * 6, 0), 0);
+        m_gui.pushComponent(new Button(game, 14 * 6, 56 * 6, 0), 0);
         m_gui.pushComponent(new Button(game, 14 * 6, 69 * 6, 1), 1);
         m_mute = new Mute(game, 1 * 6, 87 * 6);
         m_gui.pushComponent(m_mute, 2);

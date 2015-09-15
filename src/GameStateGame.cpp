@@ -1,6 +1,7 @@
 #include "GameStateGame.h"
 #include "Game.h"
 #include "GameStateTitle.h"
+#include "GameStateEnd.h"
 
 namespace av {
     GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs),
@@ -32,6 +33,7 @@ namespace av {
         m_viewSpeed = 0;
         m_generated = 0;
         m_lastBuff = -1;
+        m_end = false;
     }
 
     GameStateGame::~GameStateGame() {
@@ -40,13 +42,19 @@ namespace av {
 
     void GameStateGame::update() {
         if(!m_pauseState) {
-            m_player.update();
-            m_stamina.update();
-            m_metre.update();
-            m_bpCounter.update();
-            m_level.update();
-            for(auto& buff : m_buffs) {
-                buff->update();
+            if(m_end == false) {
+                if(m_player.update()) {
+                    m_end = true;
+                    m_stamina.end();
+                }
+                m_metre.update();
+                m_bpCounter.update();
+                m_level.update();
+            }
+            if(m_stamina.update()) {
+                m_music.stop();
+                m_game.changeState(new GameStateEnd(m_game, m_buffs, m_player.getCoord(), m_player.getBp()));
+                return;
             }
             int destination;
             if(m_player.getState() == 0) {
@@ -58,7 +66,7 @@ namespace av {
             }
 
             if(destination > m_viewCoord) {
-                m_viewSpeed = 10 * (destination - m_viewCoord) / 48;
+                m_viewSpeed = 10 * (destination - m_viewCoord) / 48 * m_player.getLevelSpeed();
                 m_viewVelocity += 0.5F;
                 m_viewVelocity = m_viewVelocity > m_viewSpeed?m_viewSpeed:m_viewVelocity;
             } else if(destination < m_viewCoord) {
@@ -68,20 +76,22 @@ namespace av {
             }
             m_viewCoord += m_viewVelocity;
             if(m_viewCoord < 0)m_viewCoord = 0;
-            while((m_player.getCoord().y + 100) > m_generated * 20) {
-                int x = rand() % 64;
-                m_buffs.push_back(new Buff(m_game, m_player, {x, (m_generated + 1) * 20},
-                    rand() % 100 > 25?0:1));
-                if(m_lastBuff != -1) {
-                    int sx, sy;
-                    for(int i = 1; i < 5; i++) {
-                        sx = int((x - m_lastBuff) / 5 * i) + m_lastBuff;
-                        sy = m_generated * 20 + 4 * i;
-                        m_buffs.push_back(new Buff(m_game, m_player, {sx, sy}, 2));
+            if(m_end == false) {
+                while((m_player.getCoord().y + 100) > m_generated * 20 && m_generated < 150) {
+                    int x = rand() % 64;
+                    m_buffs.push_back(new Buff(m_game, m_player, {x, (m_generated + 1) * 20},
+                        rand() % 100 > 25?0:1));
+                    if(m_lastBuff != -1) {
+                        int sx, sy;
+                        for(int i = 1; i < 5; i++) {
+                            sx = int((x - m_lastBuff) / 5 * i) + m_lastBuff;
+                            sy = m_generated * 20 + 4 * i;
+                            m_buffs.push_back(new Buff(m_game, m_player, {sx, sy}, 2));
+                        }
                     }
+                    m_lastBuff = x;
+                    m_generated++;
                 }
-                m_lastBuff = x;
-                m_generated++;
             }
         }
         switch(m_gui.update()) {
@@ -131,10 +141,13 @@ namespace av {
     void GameStateGame::handleInput() {
         sf::Event windowEvent;
         while(m_game.getWindow().pollEvent(windowEvent)) {
-            if(!m_pauseState)
-                m_player.handleInput(windowEvent);
-            else
+            if(!m_pauseState) {
+                if(!m_end) {
+                    m_player.handleInput(windowEvent);
+                }
+            } else {
                 m_gui.handleInput(windowEvent);
+            }
             switch(windowEvent.type) {
                 case sf::Event::Closed:
                     m_music.stop();
@@ -163,9 +176,9 @@ namespace av {
                         break;
                     } else if(windowEvent.key.code == sf::Keyboard::Return) {
 #if _DEBUG
-                        m_buffs.clear();
+                        /*m_buffs.clear();
                         m_lastBuff = 0;
-                        m_generated = 0;
+                        m_generated = 0;*/
 #endif
                     }
                     break;

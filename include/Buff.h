@@ -10,7 +10,6 @@ namespace av {
     class Buff {
     public:
         Buff(Game& game, Player& player, sf::Vector2i coord, int type);
-        void update();
         void draw();
         void collect();
         sf::Vector2i getCoord();

@@ -31,6 +31,7 @@ namespace av {
         Mute* m_mute;
         sf::View m_view;
         bool m_pauseState;
+        bool m_end;
         sf::RectangleShape m_dim;
         StaminaBar m_stamina;
         Metre m_metre;
