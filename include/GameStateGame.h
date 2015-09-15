@@ -11,6 +11,7 @@
 #include "Metre.h"
 #include "Buff.h"
 #include "BpCounter.h"
+#include "Level.h"
 
 namespace av {
     class Game;
@@ -36,6 +37,7 @@ namespace av {
         std::vector<Buff*> m_buffs;
         BpCounter m_bpCounter;
         float m_viewVelocity, m_viewSpeed, m_viewCoord;
+        Level m_level;
     };
 }
 

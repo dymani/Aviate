@@ -25,6 +25,7 @@ namespace av {
         m_box.setOutlineColor(sf::Color::Green);
         m_box.setOutlineThickness(2.0F);
         m_box.setSize({18.0F, 48.0F});
+        m_level = 1;
     }
 
     void Player::update() {
@@ -94,7 +95,7 @@ namespace av {
         if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return) {
             m_stamina = 10000;
             m_bp = rand() % 1000;
-            std::cout << m_bp << std::endl;
+            m_level = rand() & 10 + 1;
         }
 #endif
         if(windowEvent.type == sf::Event::KeyPressed) {
@@ -211,5 +212,14 @@ namespace av {
 
     void Player::setBp(int bp) {
         m_bp = bp;
+    }
+
+    int Player::getLevel() {
+        return m_level;
+    }
+
+    void Player::setLevel(int level) {
+        if(level > 0 && level <= 10)
+            m_level = level;
     }
 }

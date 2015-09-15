@@ -51,6 +51,7 @@ namespace av {
                 m_player.setBp(m_player.getBp() + 1);
                 break;
             case LVL:
+                m_player.setLevel(m_player.getLevel() + 1);
                 break;
             case STM:
                 m_player.setStamina(m_player.getStamina() + 5000);

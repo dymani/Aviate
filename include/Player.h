@@ -23,6 +23,8 @@ namespace av {
         int getState();
         int getBp();
         void setBp(int bp);
+        int getLevel();
+        void setLevel(int level);
     protected:
         Game& m_game;
         sf::Vector2f m_coord;
@@ -37,6 +39,7 @@ namespace av {
         std::vector<Buff*>& m_buffs;
         int m_bp;
         sf::RectangleShape m_box;
+        int m_level;
     };
 }
 

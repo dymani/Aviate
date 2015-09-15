@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="src\BpCounter.cpp" />
     <ClCompile Include="src\Buff.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Metre.cpp" />
     <ClCompile Include="src\StaminaBar.cpp" />
     <ClCompile Include="src\Bot.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="include\Gui.h" />
     <ClInclude Include="include\IGameState.h" />
     <ClInclude Include="include\IGuiComponent.h" />
+    <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\Metre.h" />
     <ClInclude Include="include\Mouse.h" />
     <ClInclude Include="include\Mute.h" />

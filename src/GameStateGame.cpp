@@ -3,7 +3,7 @@
 #include "GameStateTitle.h"
 
 namespace av {
-    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player), m_bpCounter(game, m_player) {
+    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player), m_bpCounter(game, m_player), m_level(game, m_player) {
         m_background.setTexture(m_game.getTexture("twilight"));
         m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
@@ -26,8 +26,9 @@ namespace av {
         m_dim.setFillColor(sf::Color(0, 0, 0, 200));
         m_buffs.clear();
         for(int i = 0; i < 10; i++) {
-            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
             m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 0));
+            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 1));
+            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
         }
         m_viewCoord = 0;
         m_viewVelocity = 0;
@@ -44,6 +45,7 @@ namespace av {
             m_stamina.update();
             m_metre.update();
             m_bpCounter.update();
+            m_level.update();
             for(auto& buff : m_buffs) {
                 buff->update();
             }
@@ -51,9 +53,9 @@ namespace av {
             if(m_player.getState() == 0) {
                 destination = 0;
             } else if(m_player.getState() == 1) {
-                destination = int(m_player.getCoord().y + 0.5F) - 56;
+                destination = int(m_player.getCoord().y + 0.5F) - 48;
             } else {
-                destination = int(m_player.getCoord().y + 0.5F) - 32;
+                destination = int(m_player.getCoord().y + 0.5F) - 40;
             }
 
             if(destination > m_viewCoord) {
@@ -104,6 +106,7 @@ namespace av {
         m_stamina.draw();
         m_metre.draw();
         m_bpCounter.draw();
+        m_level.draw();
         if(m_pauseState) {
             m_game.getWindow().draw(m_dim);
             m_gui.draw();
