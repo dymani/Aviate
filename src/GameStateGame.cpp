@@ -3,7 +3,9 @@
 #include "GameStateTitle.h"
 
 namespace av {
-    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs), m_stamina(game, m_player), m_metre(game, m_player), m_bpCounter(game, m_player), m_level(game, m_player) {
+    GameStateGame::GameStateGame(Game& game):IGameState(game), m_gui(game), m_player(game, m_buffs),
+        m_stamina(game, m_player), m_metre(game, m_player), m_bpCounter(game, m_player),
+        m_level(game, m_player) {
         m_background.setTexture(m_game.getTexture("twilight"));
         m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
@@ -25,14 +27,11 @@ namespace av {
         m_dim.setSize({384, 576});
         m_dim.setFillColor(sf::Color(0, 0, 0, 200));
         m_buffs.clear();
-        for(int i = 0; i < 10; i++) {
-            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 0));
-            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 1));
-            m_buffs.push_back(new Buff(m_game, m_player, {rand() % 64, 25 * (i + 1)}, 2));
-        }
         m_viewCoord = 0;
         m_viewVelocity = 0;
         m_viewSpeed = 0;
+        m_generated = 0;
+        m_lastBuff = -1;
     }
 
     GameStateGame::~GameStateGame() {
@@ -69,6 +68,21 @@ namespace av {
             }
             m_viewCoord += m_viewVelocity;
             if(m_viewCoord < 0)m_viewCoord = 0;
+            while((m_player.getCoord().y + 100) > m_generated * 20) {
+                int x = rand() % 64;
+                m_buffs.push_back(new Buff(m_game, m_player, {x, (m_generated + 1) * 20},
+                    rand() % 100 > 25?0:1));
+                if(m_lastBuff != -1) {
+                    int sx, sy;
+                    for(int i = 1; i < 5; i++) {
+                        sx = int((x - m_lastBuff) / 5 * i) + m_lastBuff;
+                        sy = m_generated * 20 + 4 * i;
+                        m_buffs.push_back(new Buff(m_game, m_player, {sx, sy}, 2));
+                    }
+                }
+                m_lastBuff = x;
+                m_generated++;
+            }
         }
         switch(m_gui.update()) {
             case 0:
@@ -150,7 +164,8 @@ namespace av {
                     } else if(windowEvent.key.code == sf::Keyboard::Return) {
 #if _DEBUG
                         m_buffs.clear();
-                        m_buffs.push_back(new Buff(m_game, m_player, {10, 10}, 2));
+                        m_lastBuff = 0;
+                        m_generated = 0;
 #endif
                     }
                     break;

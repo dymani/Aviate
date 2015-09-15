@@ -38,6 +38,7 @@ namespace av {
         BpCounter m_bpCounter;
         float m_viewVelocity, m_viewSpeed, m_viewCoord;
         Level m_level;
+        int m_generated, m_lastBuff;
     };
 }
 
