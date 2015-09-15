@@ -35,7 +35,7 @@ namespace av {
         Metre m_metre;
         std::vector<Buff*> m_buffs;
         BpCounter m_bpCounter;
-        float m_viewVelocity, m_viewCoord;
+        float m_viewVelocity, m_viewSpeed, m_viewCoord;
     };
 }
 

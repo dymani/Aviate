@@ -31,6 +31,7 @@ namespace av {
         }
         m_viewCoord = 0;
         m_viewVelocity = 0;
+        m_viewSpeed = 0;
     }
 
     GameStateGame::~GameStateGame() {
@@ -46,33 +47,26 @@ namespace av {
             for(auto& buff : m_buffs) {
                 buff->update();
             }
+            int destination;
             if(m_player.getState() == 0) {
-                m_viewCoord = 0;
-                m_viewVelocity = 0;
+                destination = 0;
             } else if(m_player.getState() == 1) {
-                if(m_player.getCoord().y <= 48) {
-                    m_viewVelocity = 0;
-                } else if(m_player.getCoord().y - m_viewCoord > 52) {
-                    m_viewVelocity += 1.0F;
-                    m_viewVelocity = m_viewVelocity >= m_player.getVelocity().y + 1.0F?m_player.getVelocity().y + 1.0F:m_viewVelocity;
-                } else if(m_player.getCoord().y - m_viewCoord >= 48) {
-                    m_viewVelocity += 0.5F;
-                    m_viewVelocity = m_viewVelocity >= m_player.getVelocity().y?m_player.getVelocity().y:m_viewVelocity;
-                } else {
-                    m_viewVelocity += 0.2F;
-                }
-            } else if(m_player.getState() == 2) {
-                if(m_player.getCoord().y - m_viewCoord <= 24) {
-                    m_viewVelocity -= 0.5F;
-                    m_viewVelocity = m_viewVelocity <= m_player.getVelocity().y?m_player.getVelocity().y:m_viewVelocity;
-                } else if(m_player.getCoord().y <= 48) {
+                destination = int(m_player.getCoord().y + 0.5F) - 56;
+            } else {
+                destination = int(m_player.getCoord().y + 0.5F) - 32;
+            }
 
-                } else {
-                    m_viewVelocity -= 0.2F;
-                }
+            if(destination > m_viewCoord) {
+                m_viewSpeed = 10 * (destination - m_viewCoord) / 48;
+                m_viewVelocity += 0.5F;
+                m_viewVelocity = m_viewVelocity > m_viewSpeed?m_viewSpeed:m_viewVelocity;
+            } else if(destination < m_viewCoord) {
+                m_viewSpeed = 20 * (destination - m_viewCoord) / 48;
+                m_viewVelocity -= 0.5F;
+                m_viewVelocity = m_viewVelocity < m_viewSpeed?m_viewSpeed:m_viewVelocity;
             }
             m_viewCoord += m_viewVelocity;
-            if(m_viewCoord < 0) m_viewCoord = 0;
+            if(m_viewCoord < 0)m_viewCoord = 0;
         }
         switch(m_gui.update()) {
             case 0:
