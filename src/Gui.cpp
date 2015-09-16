@@ -2,12 +2,17 @@
 #include "Game.h"
 
 namespace av {
-    Gui::Gui(Game& game):m_game(game), m_mouse(game) {
-        setCursorVisible(true);
+    Gui::Gui(Game& game):m_game(game) {
+    }
+
+    Gui::~Gui() {
+        while(m_components.size() != 0) {
+            delete m_components[0];
+            m_components.erase(m_components.begin());
+        }
     }
 
     int Gui::update() {
-        m_mouse.update();
         for(auto& component : m_components) {
             if(component.second->update()) {
                 return component.first;
@@ -17,7 +22,6 @@ namespace av {
     }
 
     void Gui::handleInput(sf::Event& windowEvent) {
-        m_mouse.handleInput(windowEvent);
         for(auto& component : m_components) {
             if(component.second->handleInput(windowEvent))
                 return;
@@ -27,9 +31,6 @@ namespace av {
     void Gui::draw() {
         for(auto& component : m_components) {
             component.second->draw(m_game.getWindow());
-        }
-        if(m_isCursorVisible == true) {
-            m_mouse.draw(m_game.getWindow());
         }
     }
 
@@ -43,10 +44,5 @@ namespace av {
 
     void Gui::removeComponent(int id) {
         m_components.erase(id);
-    }
-
-    void Gui::setCursorVisible(bool isCursorVisible) {
-        m_isCursorVisible = isCursorVisible;
-        m_game.getWindow().setMouseCursorVisible(!isCursorVisible);
     }
 }

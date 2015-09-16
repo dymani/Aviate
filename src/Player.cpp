@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Game.h"
 #include "Buff.h"
-#define INTERVEL 10
 
 namespace av {
     Player::Player(Game& game, std::vector<Buff*>& buffs):m_game(game), m_buffs(buffs) {
@@ -21,16 +20,12 @@ namespace av {
         m_interval = 0;
         m_stamina = 10000;
         m_bp = 0;
-        m_box.setFillColor({0, 0, 0, 0});
-        m_box.setOutlineColor(sf::Color::Green);
-        m_box.setOutlineThickness(2.0F);
-        m_box.setSize({18.0F, 48.0F});
         m_level = 1;
         m_levelSpeed = {1.0F, 1.1F, 1.21F, 1.33F, 1.46F, 1.61F, 1.77F, 1.95F, 2.14F, 2.36F};
+        m_gameover = false;
     }
 
     bool Player::update() {
-        bool gameover = false;
         sf::Vector2f coord = m_coord;
         int mouseX = int(sf::Mouse::getPosition(m_game.getWindow()).x / 6);
         if(mouseX > coord.x) {
@@ -57,7 +52,7 @@ namespace av {
                     coord.x = 64;
                 }
                 if(m_stamina <= 0)
-                    gameover = true;
+                    m_gameover = true;
                 break;
             case FALLING:
                 m_speedY -= GRAVITY;
@@ -72,7 +67,7 @@ namespace av {
                     coord.y += m_velocity.y;
                 } else {
                     if(m_speedY == -10)
-                        gameover = true;
+                        m_gameover = true;
                     coord.y = 0;
                     m_speedY = 0;
                     m_velocity.y = 0;
@@ -86,7 +81,7 @@ namespace av {
                     coord.x = 64;
                 }
                 if(coord.y > 3000)
-                    gameover = true;
+                    m_gameover = true;
                 sf::FloatRect collisionBox = {coord.x - 1.5F, coord.y - 1.0F, 3, 8};
                 for(unsigned int i = 0; i < m_buffs.size();) {
                     if(collisionBox.intersects(m_buffs.at(i)->getCollisionBox())) {
@@ -101,17 +96,10 @@ namespace av {
         m_coord = coord;
         m_interval++;
         if(m_stamina < 0) m_stamina = 0;
-        return gameover;
+        return m_gameover;
     }
 
     void Player::handleInput(sf::Event& windowEvent) {
-#if _DEBUG
-        if(windowEvent.type == sf::Event::KeyPressed && windowEvent.key.code == sf::Keyboard::Return) {
-            m_stamina = 10000;
-            m_bp = rand() % 1000;
-            m_level = rand() % 10 + 1;
-        }
-#endif
         if(windowEvent.type == sf::Event::KeyPressed) {
             if(windowEvent.key.code == sf::Keyboard::Space) {
                 m_spaceState = true;
@@ -138,10 +126,12 @@ namespace av {
     }
 
     void Player::draw() {
-#if _DEBUG
-        m_box.setPosition((m_coord.x - 1.5F) * 6, (82.0F - m_coord.y + 1.0F) * 6);
-        m_game.getWindow().draw(m_box);
-#endif
+        if(m_gameover) {
+            m_sprite.setTextureRect({45, 0, 9, 9});
+            m_sprite.setPosition(float(int(m_coord.x * 6)), float(int((82 - m_coord.y) * 6)));
+            m_game.getWindow().draw(m_sprite);
+            return;
+        }
         if(m_facingLeft) {
             if(m_velocity.x > -0.2 && m_state == IDLE) {
                 m_sprite.setTextureRect({9, 0, 9, 9});
@@ -158,7 +148,7 @@ namespace av {
                         m_sprite.setTextureRect({18, 0, 9, 9});
                         break;
                 }
-                if(m_interval >= INTERVEL) {
+                if(m_interval >= 10) {
                     m_frame = m_frame == 3?0:m_frame + 1;
                     m_interval = 0;
                 }
@@ -183,7 +173,7 @@ namespace av {
                         m_sprite.setTextureRect({18, 9, 9, 9});
                         break;
                 }
-                if(m_interval >= INTERVEL) {
+                if(m_interval >= 10) {
                     m_frame = m_frame == 3?0:m_frame + 1;
                     m_interval = 0;
                 }

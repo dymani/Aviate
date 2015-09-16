@@ -15,7 +15,7 @@ namespace av {
 
     class GameStateTitle: public IGameState {
     public:
-        GameStateTitle(Game& game);
+        GameStateTitle(Game& game, bool mute);
         ~GameStateTitle();
         void draw(const double dt);
         void update();

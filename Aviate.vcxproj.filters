@@ -39,9 +39,6 @@
     <ClCompile Include="src\Gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Mute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -174,6 +171,12 @@
     <Image Include="assets\textures\twilight.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\textures\end.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\Tutorial.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Aviate.rc">
@@ -193,5 +196,11 @@
     <Media Include="assets\sounds\title-.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="assets\sounds\end.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Score.txt" />
   </ItemGroup>
 </Project>

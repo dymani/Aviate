@@ -4,7 +4,7 @@
 #include "GameStateGame.h"
 
 namespace av {
-    GameStateTitle::GameStateTitle(Game& game):IGameState(game), m_gui(game), m_bot(game) {
+    GameStateTitle::GameStateTitle(Game& game, bool mute):IGameState(game), m_gui(game), m_bot(game) {
         m_background.setTexture(m_game.getTexture("twilight"));
         m_background.setTextureRect({64, 384, 64, 96});
         m_background.setScale({6.0F, 6.0F});
@@ -16,16 +16,22 @@ namespace av {
         m_overlay.setTexture(m_game.getTexture("twilight"));
         m_overlay.setTextureRect({0, 96, 64, 96});
         m_overlay.setScale({6.0F, 6.0F});
-        m_gui.setCursorVisible(0);
+        m_game.getWindow().setMouseCursorVisible(true);
         m_gui.pushComponent(new Button(game, 14 * 6, 56 * 6, 0), 0);
         m_gui.pushComponent(new Button(game, 14 * 6, 69 * 6, 1), 1);
         m_mute = new Mute(game, 1 * 6, 87 * 6);
         m_gui.pushComponent(m_mute, 2);
         m_music.setBuffer(m_game.getSound("title"));
-        m_music.play(true);
+        if(mute) {
+            m_mute->setStatus(true);
+        } else {
+            m_music.play(true);
+            m_mute->setStatus(false);
+        }
     }
 
     GameStateTitle::~GameStateTitle() {
+        delete m_mute;
         m_music.stop();
     }
 
@@ -45,7 +51,7 @@ namespace av {
         switch(m_gui.update()) {
             case 0:
                 m_music.stop();
-                m_game.changeState(new GameStateGame(m_game));
+                m_game.changeState(new GameStateGame(m_game, m_mute->getStatus(), true));
                 return;
             case 1:
                 m_game.getWindow().close();

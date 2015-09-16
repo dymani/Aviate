@@ -18,20 +18,21 @@ namespace av {
 
     class GameStateGame: public IGameState {
     public:
-        GameStateGame(Game& game);
+        GameStateGame(Game& game, bool mute, bool tutorial = false);
         ~GameStateGame();
         void update();
         void draw(const double dt);
         void handleInput();
     private:
-        sf::Sprite m_background, m_decoration, m_overlay;
+        sf::Sprite m_background, m_decoration, m_overlay, m_tutorial;
         Gui m_gui;
         Player m_player;
         Sound m_music;
         Mute* m_mute;
         sf::View m_view;
-        bool m_pauseState;
-        bool m_end;
+        enum State {
+            TUT, GAME, PAUSE, END
+        } m_state;
         sf::RectangleShape m_dim;
         StaminaBar m_stamina;
         Metre m_metre;

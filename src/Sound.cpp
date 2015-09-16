@@ -2,7 +2,6 @@
 
 namespace av {
     Sound::Sound() {
-
     }
 
     void Sound::setBuffer(sf::SoundBuffer& sound) {

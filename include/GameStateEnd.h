@@ -1,6 +1,7 @@
 #ifndef GAME_STATE_END_H
 #define GAME_STATE_END_H
 
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "IGameState.h"
 #include "Gui.h"
@@ -15,7 +16,7 @@ namespace av {
 
     class GameStateEnd: public IGameState {
     public:
-        GameStateEnd(Game& game, std::vector<Buff*>& buffs, sf::Vector2f player, int bp);
+        GameStateEnd(Game& game, std::vector<Buff*>& buffs, sf::Vector2f player, int bp, bool mute);
         ~GameStateEnd();
         void update();
         void draw(const double dt);
@@ -28,6 +29,8 @@ namespace av {
         Mute* m_mute;
         std::vector<Buff*>& m_buffs;
         Score m_score;
+        std::ifstream m_fin;
+        std::ofstream m_fout;
     };
 }
 

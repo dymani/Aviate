@@ -6,7 +6,7 @@
 namespace av {
     class Button: public IGuiComponent {
     public:
-        const static int WIDTH = 36 * 6, HEIGHT = 12 * 6;
+        const static int WIDTH = 216, HEIGHT = 72;
         Button(Game& game, int x, int y, int id);
         bool update();
         void draw(sf::RenderWindow& window);

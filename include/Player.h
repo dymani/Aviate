@@ -39,9 +39,9 @@ namespace av {
         int m_frame, m_interval;
         std::vector<Buff*>& m_buffs;
         int m_bp;
-        sf::RectangleShape m_box;
         int m_level;
         std::vector<float> m_levelSpeed;
+        bool m_gameover;
     };
 }
 

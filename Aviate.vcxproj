@@ -159,7 +159,6 @@
     <ClCompile Include="src\GameStateTitle.cpp" />
     <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\Mute.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Sound.cpp" />
@@ -193,6 +192,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\textures\end.png" />
     <Image Include="assets\textures\gui.png" />
     <Image Include="assets\textures\icon.ico" />
     <Image Include="assets\textures\icon.png" />
@@ -201,6 +201,7 @@
     <Image Include="assets\textures\splash1.png" />
     <Image Include="assets\textures\sprite.png" />
     <Image Include="assets\textures\title.png" />
+    <Image Include="assets\textures\Tutorial.png" />
     <Image Include="assets\textures\twilight.png" />
     <Image Include="icon1.ico" />
   </ItemGroup>
@@ -208,10 +209,14 @@
     <ResourceCompile Include="Aviate.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="assets\sounds\end.wav" />
     <Media Include="assets\sounds\game-.wav" />
     <Media Include="assets\sounds\game.wav" />
     <Media Include="assets\sounds\title-.wav" />
     <Media Include="assets\sounds\title.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Score.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

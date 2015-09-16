@@ -23,20 +23,36 @@ namespace av {
         m_u.setTextureRect({6 * u, 88, 6, 8});
         m_u.setScale(6.0F, 6.0F);
         m_digits += 1;
+        m_l.setTexture(m_game.getTexture("gui"));
+        m_l.setTextureRect({60, 88, 6, 8});
+        m_l.setScale(6.0F, 6.0F);
+        m_r.setTexture(m_game.getTexture("gui"));
+        m_r.setTextureRect({66, 88, 6, 8});
+        m_r.setScale(6.0F, 6.0F);
         switch(m_digits) {
             case 3:
+                m_l.setPosition(102, 276);
                 m_h.setPosition(138, 276);
                 m_t.setPosition(174, 276);
                 m_u.setPosition(210, 276);
+                m_r.setPosition(246, 276);
                 break;
             case 2:
+                m_l.setPosition(120, 276);
                 m_t.setPosition(156, 276);
                 m_u.setPosition(192, 276);
+                m_r.setPosition(228, 276);
                 break;
             case 1:
+                m_l.setPosition(138, 276);
                 m_u.setPosition(174, 276);
+                m_r.setPosition(210, 276);
                 break;
         }
+    }
+
+    void Score::setNew(bool isNew) {
+        m_isNew = isNew;
     }
 
     void Score::draw() {
@@ -48,6 +64,10 @@ namespace av {
             case 1:
                 m_game.getWindow().draw(m_u);
                 break;
+        }
+        if(m_isNew) {
+            m_game.getWindow().draw(m_l);
+            m_game.getWindow().draw(m_r);
         }
     }
 }

@@ -5,14 +5,15 @@
 namespace av {
     GameStateSplash::GameStateSplash(Game& game):IGameState(game) {
         {
-            sf::Texture splash0, splash1, gui, sprite, title, end, twilight;
+            sf::Texture splash0, splash1, gui, sprite, title, end, twilight, tutorial;
             if(!splash0.loadFromFile("assets/textures/splash0.png")
                 || !splash1.loadFromFile("assets/textures/splash1.png")
                 || !gui.loadFromFile("assets/textures/gui.png")
                 || !sprite.loadFromFile("assets/textures/sprite.png")
                 || !title.loadFromFile("assets/textures/title.png")
                 || !end.loadFromFile("assets/textures/end.png")
-                || !twilight.loadFromFile("assets/textures/twilight.png")) {
+                || !twilight.loadFromFile("assets/textures/twilight.png")
+                || !tutorial.loadFromFile("assets/textures/tutorial.png")) {
                 m_game.getWindow().close();
             }
             m_game.pushTexture("splash0", splash0);
@@ -22,15 +23,18 @@ namespace av {
             m_game.pushTexture("title", title);
             m_game.pushTexture("end", end);
             m_game.pushTexture("twilight", twilight);
+            m_game.pushTexture("tutorial", tutorial);
         }
         {
-            sf::SoundBuffer title, game;
+            sf::SoundBuffer title, game, end;
             if(!title.loadFromFile("assets/sounds/title.wav")
-                || !game.loadFromFile("assets/sounds/game.wav")) {
+                || !game.loadFromFile("assets/sounds/game.wav")
+                || !end.loadFromFile("assets/sounds/end.wav")) {
                 m_game.getWindow().close();
             }
             m_game.pushSound("title", title);
             m_game.pushSound("game", game);
+            m_game.pushSound("end", end);
 
         }
         m_splash.setTexture(game.getTexture("splash0"));
@@ -76,7 +80,7 @@ namespace av {
                         m_splash.setTexture(m_game.getTexture("splash1"));
                         m_splashNo = 1;
                     } else {
-                        m_game.changeState(new GameStateTitle(m_game));
+                        m_game.changeState(new GameStateTitle(m_game, false));
                     }
                     return;
                 }

@@ -7,7 +7,7 @@ namespace av {
         m_sprite.setTexture(game.getTexture("sprite"));
         m_sprite.setTextureRect({9, 0, 9, 9});
         m_sprite.setScale({6.0F, 6.0F});
-        m_sprite.setPosition(float(m_coord.x - 4.5F) * 6, float(82 * 6));
+        m_sprite.setPosition(float(m_coord.x - 4.5F) * 6, 492.0F);
         m_direction = LEFT;
         m_left = true;
         m_frame = 1;
