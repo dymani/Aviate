@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Aviate v1.0.zip" />
     <None Include="Aviate.aps" />
     <None Include="README.md" />
   </ItemGroup>

@@ -139,6 +139,7 @@
     <None Include="README.md" />
     <None Include=".gitignore" />
     <None Include="Aviate.aps" />
+    <None Include="Aviate v1.0.zip" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\icon.png">
